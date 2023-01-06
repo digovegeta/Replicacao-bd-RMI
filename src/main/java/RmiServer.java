@@ -31,14 +31,11 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
     {
         list.add(nameServer);
         String listTemp = "";
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++)
             listTemp += codigo + list.get(i) ;
-        }
-        for (String server : list){
-            if(!server.equals(serverPadrao)){
+        for (String server : list)
+            if(!server.equals(serverPadrao))
                 new RmiClientServer().sendServer(server, this.list.size() + listTemp);
-            }
-        }
         System.out.println("list: " + list.size());
     }
     @Override
@@ -64,7 +61,7 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
     }
     public void query(String msg)
     {
-        System.out.println(msg);
+        System.out.println("query: " + msg);
     }
     private void localizarAddress() 
     {
