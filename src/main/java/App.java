@@ -13,11 +13,11 @@ public class App {
        separador();
        new RmiServer(3230);
        separador();
-       new RmiClient().msg(3232,"Amor");
+       new RmiClient().sendMensage(3232,"Amor");
        separador();
-       new RmiClient().msg(3231,"Bahia");
+       new RmiClient().sendMensage(3231,"Bahia");
        separador();
-       new RmiClient().msg(3230,"Carnaval");
+       new RmiClient().sendMensage(3230,"Carnaval");
        separador();
        System.exit(0);
     }

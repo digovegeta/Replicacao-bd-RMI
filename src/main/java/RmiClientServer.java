@@ -1,51 +1,49 @@
 import java.rmi.*;
 import java.rmi.registry.*;
 import java.net.*;
+import java.util.ArrayList;
 
 public class RmiClientServer
 {
     public void addServer(int serverPort, String text){
-       String s = "192.168.0.18";
        IServer rmiServer;
        Registry registry;
-       String serverAddress = s;
-       System.out.println("enviando mensagem \"" + text + "\" para " + serverAddress + ":" + serverPort);
+       String serverAddress = "192.168.0.18";
        try
        {
-           registry = LocateRegistry.getRegistry(serverAddress,serverPort);
+           registry = LocateRegistry.getRegistry(serverAddress, serverPort);
            rmiServer = (IServer)(registry.lookup("rmiServer-" + serverPort));
            rmiServer.addServer(text);
        }
-       catch(RemoteException e)
-       {
-           
-       }
-       catch(NotBoundException e)
-       {
-           
-       }
+       catch(RemoteException e){}
+       catch(NotBoundException e){}
     }
 
-    public void sendMensageServer(int serverPort, String text){
-       String s = "192.168.0.18";
+    public void sendMensageServer(String serverName, String text){
        IServer rmiServer;
        Registry registry;
-       String serverAddress = s;
-       System.out.println("enviando mensagem \"" + text + "\" para " + serverAddress + ":" + serverPort);
+       String serverAddress = "192.168.0.18";
        try
        {
-           registry = LocateRegistry.getRegistry(serverAddress,serverPort);
-           rmiServer = (IServer)(registry.lookup("rmiServer-" + serverPort));
+           registry = LocateRegistry.getRegistry(serverAddress);
+           rmiServer = (IServer)(registry.lookup(serverName));
            rmiServer.sendMensageServer(text);
        }
-       catch(RemoteException e)
-       {
-           
-       }
-       catch(NotBoundException e)
-       {
-           
-       }
+       catch(RemoteException e){}
+       catch(NotBoundException e){}
     }
-    
+    public void sendServer(String serverName, String list,  String port){
+       IServer rmiServer;
+       Registry registry;
+       String serverAddress = "192.168.0.18";
+       try
+       {
+           registry = LocateRegistry.getRegistry(serverAddress, Integer.parseInt(port));
+           rmiServer = (IServer)(registry.lookup(serverName));
+           rmiServer.receiveServer(list);
+       }
+       catch(RemoteException e){}
+       catch(NotBoundException e){}
+    }
+
 }

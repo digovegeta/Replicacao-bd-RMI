@@ -6,9 +6,9 @@ public class RmiClient
 {
     static public void main(String args[])
     {
-        new RmiClient().msg(3232, "Amor");
+        new RmiClient().sendMensage(3232, "Amor");
     }
-    public void msg(int serverPort, String text){
+    public void sendMensage(int serverPort, String text){
         
        String s = "192.168.0.18";
        IClient rmiServer;
