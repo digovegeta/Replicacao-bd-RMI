@@ -17,27 +17,26 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
     @Override
     public void sendMensage(String msg)
     {
-        /*if(nameServer.equals(serverPadrao)){
+        if(nameServer.equals(serverPadrao)){
             query(msg);
             for (String server : list) 
                 if(!server.equals(serverPadrao))
                     new RmiClientServer().sendMensageServer(server, msg);
         }
         else                
-            new RmiClient().sendMensage(portaPadrao, msg);*/
+            new RmiClient().sendMensage(portaPadrao, msg);
     }
     @Override
     public void addServer(String nameServer)
     {
         list.add(nameServer);
-        port.put(nameServer, nameServer.split("-")[1]);
         String listTemp = "";
         for (int i = 0; i < list.size(); i++){
             listTemp += codigo + list.get(i) ;
         }
         for (String server : list){
             if(!server.equals(serverPadrao)){
-                new RmiClientServer().sendServer(server, this.list.size() + listTemp, port.get(server));
+                new RmiClientServer().sendServer(server, this.list.size() + listTemp);
             }
         }
         System.out.println("list: " + list.size());
@@ -56,8 +55,7 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
         for(int i = 0; i < index; i++){
             nameServer = list.split(codigo)[i+1];
             this.list.add(nameServer);
-            this.port.put(nameServer, nameServer.split("-")[1]);
-            System.out.println(this.nameServer + ": list " + this.list.get(i) + " - "+ this.list.size() + " port: " + port.get(this.list.get(i)));
+            System.out.println(this.nameServer + ": list " + this.list.get(i) + " - "+ this.list.size());
         }
     }
     public void receiveMessage(String x) throws RemoteException
@@ -105,5 +103,4 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
     Registry registry;
     private String nameServer;
     private ArrayList<String> list = new ArrayList<>();
-    private HashMap<String, String> port = new HashMap<>();
 }

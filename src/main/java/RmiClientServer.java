@@ -25,20 +25,20 @@ public class RmiClientServer
        String serverAddress = "192.168.0.18";
        try
        {
-           registry = LocateRegistry.getRegistry(serverAddress);
+           registry = LocateRegistry.getRegistry(serverAddress, Integer.parseInt(serverName.split("-")[1]));
            rmiServer = (IServer)(registry.lookup(serverName));
            rmiServer.sendMensageServer(text);
        }
        catch(RemoteException e){}
        catch(NotBoundException e){}
     }
-    public void sendServer(String serverName, String list,  String port){
+    public void sendServer(String serverName, String list){
        IServer rmiServer;
        Registry registry;
        String serverAddress = "192.168.0.18";
        try
        {
-           registry = LocateRegistry.getRegistry(serverAddress, Integer.parseInt(port));
+           registry = LocateRegistry.getRegistry(serverAddress, Integer.parseInt(serverName.split("-")[1]));
            rmiServer = (IServer)(registry.lookup(serverName));
            rmiServer.receiveServer(list);
        }
