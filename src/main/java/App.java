@@ -8,24 +8,26 @@ public class App {
 
     public static void main(String[] args) throws RemoteException {
        new RmiServer(3232);
-       separador();
+       separador(200);
        new RmiServer(3231);
-       separador();
+       separador(200);
        new RmiServer(3230);
-       separador();
+       separador(500);
        new RmiClient().sendMensage(3232,"Amor");
-       separador();
+       separador(500);
        new RmiClient().sendMensage(3231,"Bahia");
-       separador();
+       separador(500);
        new RmiClient().sendMensage(3230,"Carnaval");
-       separador();
+       separador(500);
+       new RmiClient().sendMensage(3235,"Diogo");
+       separador(20000);
        System.exit(0);
     }
-    private static void separador()
+    public static void separador(int time)
     {
-        for(int i = 0; i < 30; i++){
-           System.out.print("-");
-       }
-        System.out.println("");
+        try {
+            Thread.currentThread().sleep(time);
+        } catch (InterruptedException ex) {}
+        System.out.println("--------------------------------------------------------------------------------------");
     }
 }

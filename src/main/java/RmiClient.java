@@ -22,12 +22,11 @@ public class RmiClient
            rmiServer.sendMensage(text);
        }
        catch(RemoteException e)
-       {
-          
+       {           
+           if(930990596 == e.hashCode()){
+               System.out.println("Servidor não encontrado");
+           }
        }
-       catch(NotBoundException e)
-       {
-          
-       }
+       catch(NotBoundException e){}
     }    
 }

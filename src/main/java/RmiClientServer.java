@@ -45,5 +45,27 @@ public class RmiClientServer
        catch(RemoteException e){}
        catch(NotBoundException e){}
     }
-
+    public boolean ping(String serverName){
+       IServer rmiServer;
+       Registry registry;
+       String serverAddress = "192.168.0.18";
+       try
+       {
+           registry = LocateRegistry.getRegistry(serverAddress, Integer.parseInt(serverName.split("-")[1]));
+           rmiServer = (IServer)(registry.lookup(serverName));
+           return rmiServer.ping();
+       }
+       catch(RemoteException e)
+       {
+           if(930990596 == e.hashCode()){
+               System.out.println("Servidor não encontrado");
+               return false;
+           }
+       }
+       catch(NotBoundException e)
+       {
+            return false;
+       }
+        return false;
+    }
 }
