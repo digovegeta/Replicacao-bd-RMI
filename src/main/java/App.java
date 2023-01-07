@@ -20,7 +20,7 @@ public class App {
        new RmiClient().sendMensage(3230,"Carnaval");
        separador(500);
        new RmiClient().sendMensage(3235,"Diogo");
-       separador(20000);
+       separador(120000);
        System.exit(0);
     }
     public static void separador(int time)

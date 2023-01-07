@@ -8,6 +8,7 @@ import jdk.nashorn.internal.objects.NativeArray;
  
 public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IServer, IClient
 {
+    //Construtor
     public RmiServer(int port) throws RemoteException
     {
         thisPort = port;
@@ -15,6 +16,7 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
         createNewServer();
         startPing();
     }
+    //Interface
     @Override
     public boolean ping()
     {
@@ -30,7 +32,7 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
                     new RmiClientServer().sendMensageServer(server, msg);
         }
         else                
-            new RmiClient().sendMensage(portaPadrao, msg);
+            new RmiClientServer().sendMensage(portaPadrao, msg);
     }
     @Override
     public void addServer(String nameServer)
@@ -59,9 +61,12 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
             System.out.println(this.nameServer + ": list " + this.list.get(i) + " - "+ this.list.size());
         }
     }
+    
+    //Metodos da classe
     public void pong(String server)
     {
         System.out.println("server " + server + " não foi encontrado!");
+        remove(server);
     }
     public void query(String msg)
     {
@@ -69,6 +74,7 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
     }
     public void remove(String nameServer)
     {
+        System.out.println("server " + this.nameServer + " removeu " + nameServer );
         if(list.contains(nameServer))
             list.remove(nameServer);
         String listTemp = listToString();
@@ -127,10 +133,12 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
         ping.setNameServer(nameServer);
         new Thread(ping).start();
     }
+    
+    //Variaveis
     int thisPort, portaPadrao = 3232;
     String thisAddress, codigo = "ASA", serverPadrao = "rmiServer-3232";
     Registry registry;
     private String nameServer;
     private ArrayList<String> list = new ArrayList<>();
-    private Ping ping;
+    private Ping ping; 
 }

@@ -13,10 +13,12 @@ import java.util.ArrayList;
  */
 public class Ping implements Runnable{
 
+    //Construtor
     public Ping(RmiServer instance) {
         this.instance = instance;
     }
     
+    //Interface
     @Override
     public void run() {
         while (true) {
@@ -32,15 +34,17 @@ public class Ping implements Runnable{
             }
         }
     }
+    
+    //Metodos da classe
     public void setNameServer(String nameServer){
         this.nameServer = nameServer;
     }
     public void setList(ArrayList<String> list){
         this.list = list;
     }
-    
+
+    //Variaveis
     public String server = "", nameServer = "";
     private ArrayList<String> list = new ArrayList<>();
     private RmiServer instance;
-
 }
