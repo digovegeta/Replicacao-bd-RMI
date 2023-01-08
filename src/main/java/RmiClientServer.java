@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public class RmiClientServer
 {
-    public void addServer(int serverPort, String text){
+    public void addServer(int serverPort, String text)
+    {
        IServer rmiServer;
        Registry registry;
        String serverAddress = "192.168.0.18";
@@ -18,8 +19,8 @@ public class RmiClientServer
        catch(RemoteException e){}
        catch(NotBoundException e){}
     }
-
-    public void sendMensageServer(String serverName, String text){
+    public void sendMensageServer(String serverName, String text)
+    {
        IServer rmiServer;
        Registry registry;
        String serverAddress = "192.168.0.18";
@@ -32,7 +33,8 @@ public class RmiClientServer
        catch(RemoteException e){}
        catch(NotBoundException e){}
     }
-    public void sendServer(String serverName, String list){
+    public void sendServer(String serverName, String list)
+    {
        IServer rmiServer;
        Registry registry;
        String serverAddress = "192.168.0.18";
@@ -45,7 +47,8 @@ public class RmiClientServer
        catch(RemoteException e){}
        catch(NotBoundException e){}
     }
-    public boolean ping(String serverName){
+    public boolean ping(String serverName)
+    {
        IServer rmiServer;
        Registry registry;
        String serverAddress = "192.168.0.18";
@@ -68,7 +71,8 @@ public class RmiClientServer
        }
         return false;
     }
-    public void sendMensage(int serverPort, String text){
+    public void sendMensage(int serverPort, String text)
+    {
         
        String s = "192.168.0.18";
        IClient rmiServer;

@@ -9,5 +9,9 @@
  * @author digo_
  */
 public interface IBD {
-    
+    public void createDB(String nameBD);
+    public void createTable();
+    public void insert(String msg);
+    public String getAllData();
+    public void dropDB();
 }

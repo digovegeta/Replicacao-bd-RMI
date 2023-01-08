@@ -13,7 +13,10 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
     {
         thisPort = port;
         nameServer = "rmiServer-" + thisPort;
+        bd = new BD(nameServer.replace("-", ""));
         createNewServer();
+        if(!list.contains(nameServer))
+            bd.dropDB();
         startPing();
     }
     //Interface
@@ -40,8 +43,16 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
         list.add(nameServer);
         String listTemp = listToString();
         for (String server : list)
-            if(!server.equals(serverPadrao))
-                new RmiClientServer().sendServer(server, this.list.size() + listTemp);
+            if(!server.equals(serverPadrao)){
+                new RmiClientServer().sendServer(server, this.list.size() + listTemp);                
+                if(nameServer.equals(server)){
+                    String s = bd.getAllData();
+                    int index = Integer.parseInt(s.split("-")[0]);
+                    for (int i = 0; i < index; i++) {
+                        new RmiClientServer().sendMensageServer(server, s.split("-")[i+1]);
+                    }
+                }
+            }
         System.out.println("list: " + list.size());
     }
     @Override
@@ -60,8 +71,7 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
             this.list.add(nameServer);
             System.out.println(this.nameServer + ": list " + this.list.get(i) + " - "+ this.list.size());
         }
-    }
-    
+    }    
     //Metodos da classe
     public void pong(String server)
     {
@@ -70,6 +80,7 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
     }
     public void query(String msg)
     {
+        bd.insert(msg);
         System.out.println(nameServer + " query: " + msg);
     }
     public void remove(String nameServer)
@@ -138,7 +149,8 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject implements IS
     int thisPort, portaPadrao = 3232;
     String thisAddress, codigo = "ASA", serverPadrao = "rmiServer-3232";
     Registry registry;
-    private String nameServer;
+    private String nameServer = "";
     private ArrayList<String> list = new ArrayList<>();
     private Ping ping; 
+    public IBD bd;
 }
